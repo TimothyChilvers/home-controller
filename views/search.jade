@@ -6,3 +6,6 @@ block content
   ul
     each result in results
       li=result.name
+      button(onClick="download('#{result.magnetLink}')") Download
+
+  script(src='/javascripts/search_page.js')
