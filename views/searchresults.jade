@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 You searched for: #{query}
+  h1 I found:
+  ul
+    each result in results
+      li=result.name
+      button(onClick="download('#{result.magnetLink}')") Download
+
+  script(type='text/javascript').
+    var downloadURL = "#{downloadURL}";
+  script(src='/javascripts/search_page.js')

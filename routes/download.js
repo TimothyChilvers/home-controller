@@ -1,22 +1,27 @@
 var express = require('express');
 var router = express.Router();
-var shell = require('thepiratebay');
 var exec = require('child_process').exec;
-var cmd = 'prince -v builds/pdf/book.html -o builds/pdf/book.pdf';
 
-
-router.get('/', function(req, res, next) {
-  console.log('downloading ' + tpb);
-  exec(cmd, function(error, stdout, stderr) {
+router.post('/', function(req, res, next) {
+  console.log('downloading ' + req.body.magnet);
+  exec('transmission-remote -a "' + req.body.magnet + '"', function(error, stdout, stderr) {
+    var output = "";
     if (error) {
       console.log('Error:' + error);
-    }
-    if (stdout) {
-      console.log(stdout);
+      output += error;
     }
     if (stderr) {
       console.log(stderr);
     }
+    if (stdout) {
+      console.log(stdout);
+      if (stdout.indexOf('responded: "success"') > -1) {
+        output = "It worked";
+      } else {
+        output += stdout;
+      }
+    }
+    res.render('finished', {output : output});
   });
 });
 
