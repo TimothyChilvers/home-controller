@@ -23,5 +23,5 @@ function post(path, params, method) {
 }
 
 function download(magnetLink) {
-  post('http://81.174.158.121:45055/download/', {magnet : magnetLink});
+  post(downloadURL, {magnet : magnetLink});
 }

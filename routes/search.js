@@ -7,7 +7,9 @@ router.get('/', function(req, res, next) {
   tpb.search(req.query.q, {}, function (err, searchResult) {
     console.log(searchResult);
     res.render('search', { results: searchResult,
-                            query : req.query.q});
+                            query : req.query.q,
+                            downloadURL : process.env.HOST_URL + "/download"
+                          });
   })
 
 
